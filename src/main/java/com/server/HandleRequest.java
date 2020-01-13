@@ -5,21 +5,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HandleRequest extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private static Random r = new Random();
+    private static final Integer NUM_CHARS = 32;
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println(getRandomHexString(32));
+        try {
+            response.getWriter().println(getRandomHexString());
+        }catch (IOException ex){
+            LOGGER.log(Level.SEVERE, ex.toString(), ex);
+        }
     }
 
-    private String getRandomHexString(int numChars){
-        Random r = new Random();
-        StringBuffer sb = new StringBuffer();
-        while (sb.length() < numChars){
+    private String getRandomHexString(){
+        StringBuilder sb = new StringBuilder();
+        while (sb.length() < NUM_CHARS){
             sb.append(Integer.toHexString(r.nextInt()));
         }
-        return sb.toString().substring(0, numChars);
+        return sb.toString().substring(0, NUM_CHARS);
     }
 }
