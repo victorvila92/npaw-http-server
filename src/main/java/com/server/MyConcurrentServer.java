@@ -18,7 +18,7 @@ public class MyConcurrentServer {
     public static void main(String[] args) throws Exception {
 
         if (argumentsAreWrong(args)){
-            throw new CommandLineArgumentException("CommandLineArgument ERROR. Please follow the command: java -jar httpserver.jar -port n (where n is the listen port)");
+            throw new CommandLineArgumentException("CommandLineArgument ERROR. Please follow the command: 'java -jar httpserver.jar -port n' (where n is the listen port)");
         }
         int port = Integer.parseInt(args[1]);
 
