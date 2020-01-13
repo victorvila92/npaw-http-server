@@ -15,13 +15,6 @@ public class MyConcurrentServerTest {
 
     private static final int PORT = 8500;
 
-    @Test()
-    public void correctArguments() throws Exception {
-        String[] args = {"-port", String.valueOf(PORT)};
-        MyConcurrentServer.main(args);
-        MyConcurrentServer.stopServer();
-    }
-
     @Test(expected = CommandLineArgumentException.class)
     public void wrongArgumentPort() throws Exception {
         String[] args = {"-p", String.valueOf(PORT)};
