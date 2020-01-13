@@ -20,9 +20,11 @@ public class NpawServer {
         QueuedThreadPool threadPool = new QueuedThreadPool(maxThreads, minThreads, idleTimeout);
 
         server = new Server(threadPool);
-        ServerConnector connector = new ServerConnector(server);
-        connector.setPort(port);
-        server.setConnectors(new Connector[] { connector });
+
+        try (ServerConnector connector = new ServerConnector(server)){
+            connector.setPort(port);
+            server.setConnectors(new Connector[] { connector });
+        }
 
         ServletHandler servletHandler = new ServletHandler();
         server.setHandler(servletHandler);
