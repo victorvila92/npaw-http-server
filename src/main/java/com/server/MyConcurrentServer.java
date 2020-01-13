@@ -7,6 +7,9 @@ import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class MyConcurrentServer {
 
     private static final Integer ARGUMENT_SIZE = 2;
@@ -14,6 +17,7 @@ public class MyConcurrentServer {
     private static final Integer MAX_THREADS = 100;
     private static final Integer MIN_THREADS = 10;
     private static final Integer IDLE_TIMEOUT = 120;
+    private static final Logger LOGGER = Logger.getLogger(MyConcurrentServer.class.getName());
 
     public static void main(String[] args) throws Exception {
 
@@ -36,9 +40,10 @@ public class MyConcurrentServer {
 
         servletHandler.addServletWithMapping(HandleRequest.class, "/");
         server.start();
+        LOGGER.log(Level.INFO, "Server started. Current port: " + port);
     }
 
-    private static boolean argumentsAreWrong(String[] args) {
+    public static boolean argumentsAreWrong(String[] args) {
         return args.length != ARGUMENT_SIZE || !args[0].equals(ARGUMENT_PORT);
     }
 }
