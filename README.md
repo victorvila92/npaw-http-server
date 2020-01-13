@@ -1,3 +1,3 @@
 # npaw-http-server
 
-![alt text](https://imgur.com/a/cgbXX3v)
+![Alt text](src/main/resources/images/screenshot.png?raw=true "Optional Title")
