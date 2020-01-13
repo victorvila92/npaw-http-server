@@ -18,6 +18,7 @@ public class MyConcurrentServer {
     private static final Integer MIN_THREADS = 10;
     private static final Integer IDLE_TIMEOUT = 120;
     private static final Logger LOGGER = Logger.getLogger(MyConcurrentServer.class.getName());
+    private static Server server;
 
     public static void main(String[] args) throws Exception {
 
@@ -28,7 +29,7 @@ public class MyConcurrentServer {
 
         QueuedThreadPool threadPool = new QueuedThreadPool(MAX_THREADS, MIN_THREADS, IDLE_TIMEOUT);
 
-        Server server = new Server(threadPool);
+        server = new Server(threadPool);
 
         try (ServerConnector connector = new ServerConnector(server)){
             connector.setPort(port);
@@ -41,6 +42,10 @@ public class MyConcurrentServer {
         servletHandler.addServletWithMapping(HandleRequest.class, "/");
         server.start();
         LOGGER.log(Level.INFO, "Server started. Current port: " + port);
+    }
+
+    public static void stopServer() throws Exception {
+        server.stop();
     }
 
     public static boolean argumentsAreWrong(String[] args) {
