@@ -41,7 +41,7 @@ public class MyConcurrentServer {
 
         servletHandler.addServletWithMapping(HandleRequest.class, "/");
         server.start();
-        LOGGER.log(Level.INFO, "Server started. Current port: {}", port);
+        LOGGER.log(Level.INFO, "Server started. Current port: {0}.", String.valueOf(port));
     }
 
     public static void stopServer() throws Exception {
